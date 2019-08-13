@@ -8,14 +8,38 @@
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false">
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button expand="block">
+                    <ion-icon name="brush"></ion-icon>
+                    draw
+                </ion-button>
+                <ion-list>
+                    <ion-item>
+                        <ion-label>Obj1</ion-label>
+                        <ion-checkbox slot="end" value="Obj1" checked></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Obj2</ion-label>
+                        <ion-checkbox slot="end" value="Obj2" disabled></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Obj3</ion-label>
+                        <ion-checkbox slot="end" value="Obj3"></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+                <ion-button><ion-icon slot="icon-only" name="cloud-download"></ion-icon></ion-button>
+                <ion-button><ion-icon slot="icon-only" name="cloud-upload"></ion-icon></ion-button>
+
+            </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>
