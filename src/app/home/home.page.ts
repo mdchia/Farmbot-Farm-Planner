@@ -22,7 +22,7 @@ export class HomePage implements OnInit, AfterContentInit {
     this.map = new google.maps.Map(
       this.MapElement.nativeElement,
       {
-        center: {lat: -34.397, lng: 150.644},
+        center: {lat: -35.280, lng: 149.130},
         zoom: 8
       }
     );
