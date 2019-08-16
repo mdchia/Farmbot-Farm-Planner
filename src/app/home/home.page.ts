@@ -8,7 +8,7 @@ declare var google: { maps: { Map: new (arg0: any, arg1: { center: { lat: number
 })
 export class HomePage implements OnInit, AfterContentInit {
   map: any;
-  @ViewChild('mapElement') MapElement: { nativeElement: any; }
+  @ViewChild('mapElement', {static: true}) MapElement: { nativeElement: any; }
   constructor() {
 
   }
