@@ -1,60 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body {
-  font-family: "Times New Roman", Times, serif;
-}
-
-.sidenav {
-  width: 400px;
-  height: 1300px;
-  position: fixed;
-  z-index: 1;
-  top: 0px;
-  left: 1200px;
-  background: #eee;
-  overflow-x: hidden;
-  padding: 8px 0;
-}
-
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 40px;
-  color: #2196F3;
-  display: block;
-}
-
-.sidenav a:hover {
-  color: #064579;
-  padding ;
-}
-
-.main {
-  margin-left: 140px; /* Same width as the sidebar + left position in px */
-  font-size: 28px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-</style>
-</head>
-<body>
-
-<div class="sidenav">
-  <a href="#Add_New_Group"><i class="fa fa-fw fa-plus-square"></i>Add New Group</a>
-  <a href="#Pasture" <i class="fa fa-square"></i>Pasture<i class="fa fa-bars"></i></a>
-  <a href="#House"><i class="fa fa-square"></i>House<i class="fa fa-bars"></i></a>
-  <a href="#Trees"><i class="fa fa-square"></i>Trees<i class="fa fa-bars"></i></a>
-  <a href="#revegetation"><i class="fa fa-square"></i>Revegetation<i class="fa fa-bars" left:1300px></i></a>
-</div>
-
-
-</body>
-</html> 
+<ion-app>
+	  <ion-split-pane>
+	    <ion-menu type="overlay">
+	      <ion-header>
+	        <ion-toolbar>
+	          <ion-title>Menu</ion-title>
+	        </ion-toolbar>
+	      </ion-header>
+	      <ion-content>
+	        <ion-list>
+	          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+	            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+	              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+	              <ion-label>
+	                {{p.title}}
+	              </ion-label>
+	            </ion-item>
+	          </ion-menu-toggle>
+	        </ion-list>
+	      </ion-content>
+	    </ion-menu>
+	    <ion-router-outlet main></ion-router-outlet>
+	  </ion-split-pane>
+	</ion-app>
