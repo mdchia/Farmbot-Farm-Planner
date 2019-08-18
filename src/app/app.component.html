@@ -21,4 +21,50 @@
 	    </ion-menu>
 	    <ion-router-outlet main></ion-router-outlet>
 	  </ion-split-pane>
-	</ion-app>
+  <ion-split-pane>
+    <ion-menu type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+            <ion-menu-toggle auto-hide="false">
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button>functions</ion-button>
+                <ion-button expand="block">
+                    <ion-icon name="brush"></ion-icon>
+                    draw
+                </ion-button>
+                <ion-list>
+                    <ion-item>
+                        <ion-label>Obj1</ion-label>
+                        <ion-checkbox slot="end" value="Obj1" checked></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Obj2</ion-label>
+                        <ion-checkbox slot="end" value="Obj2" disabled></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Obj3</ion-label>
+                        <ion-checkbox slot="end" value="Obj3"></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+                <ion-button><ion-icon slot="icon-only" name="cloud-download"></ion-icon></ion-button>
+                <ion-button><ion-icon slot="icon-only" name="cloud-upload"></ion-icon></ion-button>
+
+            </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
