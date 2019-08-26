@@ -12,19 +12,17 @@ export class HomePage implements OnInit {
 
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/outdoors-v9';
-  lat = 37.75;
-  lng = -122.41;
+  lat = -35.28;
+  lng = 149.13;
 
   constructor() {
-    Object.getOwnPropertyDescriptor(mapboxgl, "accessToken").set('pk.eyJ1IjoiaHp6enoiLCJhIjoiY2p6cG1hOGFoMDE3dzNtbjQ2ZHpiZmI4cSJ9.5PMTx2nHNouS-uTeNO8FVQ')
-    
+    Object.getOwnPropertyDescriptor(mapboxgl, "accessToken").set('pk.eyJ1IjoiaHp6enoiLCJhIjoiY2p6cG1hOGFoMDE3dzNtbjQ2ZHpiZmI4cSJ9.5PMTx2nHNouS-uTeNO8FVQ');
   }
 
-  ngOnInit(){
-    
+  ngOnInit() {
   }
 
-  ionViewDidLoad(){
+  ionViewDidEnter() {
    this.buildMap();
   }
 
@@ -36,6 +34,6 @@ export class HomePage implements OnInit {
       center: [this.lng, this.lat]
     });
 
-console.log(this.map);
+    console.log(this.map);
     }
   }
