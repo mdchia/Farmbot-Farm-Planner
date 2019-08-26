@@ -1,31 +1,39 @@
-import { AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
-declare var google: { maps: { Map: new (arg0: any, arg1: { center: { lat: number; lng: number; }; zoom: number; }) => void; }; };
+
+import { Component, OnInit } from '@angular/core';
+import * as mapboxgl from 'mapbox-gl';
 
 @Component({
-  selector: 'app-home',
+  selector: 'src-app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  styleUrls: ['home.page.scss']
 })
-export class HomePage implements OnInit, AfterContentInit {
-  map: any;
-  @ViewChild('mapElement', {static: true}) MapElement: { nativeElement: any; }
+
+export class HomePage implements OnInit {
+
+  map: mapboxgl.Map;
+  style = 'mapbox://styles/mapbox/outdoors-v9';
+  lat = -35.28;
+  lng = 149.13;
+
   constructor() {
-
+    Object.getOwnPropertyDescriptor(mapboxgl, "accessToken").set('pk.eyJ1IjoiaHp6enoiLCJhIjoiY2p6cG1hOGFoMDE3dzNtbjQ2ZHpiZmI4cSJ9.5PMTx2nHNouS-uTeNO8FVQ');
   }
 
-  ngOnInit(): void {
-
+  ngOnInit() {
   }
 
-
-  ngAfterContentInit(): void{
-    this.map = new google.maps.Map(
-      this.MapElement.nativeElement,
-      {
-        center: {lat: -35.280, lng: 149.130},
-        zoom: 8
-      }
-    );
+  ionViewDidEnter() {
+   this.buildMap();
   }
 
-}
+  buildMap() {
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: this.style,
+      zoom: 13,
+      center: [this.lng, this.lat]
+    });
+
+    console.log(this.map);
+    }
+  }
