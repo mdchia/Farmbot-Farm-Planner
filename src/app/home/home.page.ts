@@ -41,7 +41,8 @@ export class HomePage implements OnInit {
       displayControlsDefault: false,
       controls: {
         polygon: true,
-        trash: true
+        point: true,
+        trash: true,
       }
     });
     this.map.addControl(this.draw);
