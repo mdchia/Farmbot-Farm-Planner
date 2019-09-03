@@ -6,3 +6,26 @@
 height: 100%;
 width: 100%;
 }
+
+#export {
+  position: fixed;
+  top:250px;
+  right:8px;
+  z-index:100;
+  background-color:white;
+  color:black;
+  padding:6px;
+  border-radius:4px;
+  font-family: 'Helvetica Neue';
+  cursor: pointer;
+  font-size:12px;
+  text-decoration:none;
+  /*background-image:*/
+  background-repeat: no-repeat;
+  background-position: -4245px -3px;
+  height: 32px;
+  width: 32px;
+}
+#export:hover {
+  background-color: #ddd;
+}

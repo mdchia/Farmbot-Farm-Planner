@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 
+
 class SatelliteViewControl {
 
   map: mapboxgl.Map;
   button: HTMLButtonElement;
   container: HTMLElement;
+  
 
   onAdd(map: mapboxgl.Map) {
     this.map = map;
@@ -35,6 +37,9 @@ class SatelliteViewControl {
   }
 }
 
+
+
+
 @Component({
   selector: 'src-app-home',
   templateUrl: 'home.page.html',
@@ -48,6 +53,7 @@ export class HomePage implements OnInit {
   lng = 149.13;
 
   draw: MapBoxDraw;
+  
 
   constructor() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken')
@@ -81,5 +87,20 @@ export class HomePage implements OnInit {
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.addControl(this.draw);
     this.map.addControl(new SatelliteViewControl());
+
+    var Draw = this.draw
+    document.getElementById('export').onclick = function(e) {
+      var data = Draw.getAll();
+
+      if (data.features.length > 0) {
+          var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+          document.getElementById('export').setAttribute('href', 'data:' + convertedData);
+          document.getElementById('export').setAttribute('download','data.geojson');    
+      } else {
+          alert("Please draw some data");
+      }
+      
+  }
     }
   }
+
