@@ -88,6 +88,7 @@ export class HomePage implements OnInit {
         document.getElementById('export').setAttribute('download', 'data.geojson');
       } else {
         alert('Please draw some data');
+        return false;
       }
     };
 
