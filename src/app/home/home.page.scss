@@ -17,17 +17,37 @@ width: 100%;
   padding:6px;
   border-radius:4px;
   font-family: 'Helvetica Neue';
-  cursor: pointer;
   font-size:12px;
   text-decoration:none;
   /*background-image:*/
-  background-repeat: no-repeat;
-  background-position: -4245px -3px;
   height: 32px;
   width: 32px;
   box-shadow:0px 0px 3px #000;
 }
+
+#downloadpng {
+  position: fixed;
+  top:392px;
+  right:8px;
+  z-index:100;
+  background-color:white;
+  color:black;
+  padding:6px;
+  border-radius:4px;
+  font-family: 'Helvetica Neue';
+  font-size:12px;
+  text-decoration:none;
+  /*background-image:*/
+  height: 32px;
+  width: 32px;
+  box-shadow:0px 0px 3px #000;
+}
+
 #export:hover {
+  background-color: #ddd;
+}
+
+#downloadpng:hover {
   background-color: #ddd;
 }
 
@@ -53,5 +73,3 @@ width: 100%;
     padding: 0;
     margin: 0 0 10px;
 }
-
-

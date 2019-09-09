@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl-draw-freehand-mode';
+import $ from "jquery";
 
 class SatelliteViewControl {
 
@@ -67,7 +68,8 @@ export class HomePage implements OnInit {
       container: 'map',
       style: this.style,
       zoom: 11,
-      center: [this.lng, this.lat]
+      center: [this.lng, this.lat],
+      preserveDrawingBuffer: true
     });
 
     this.draw = new MapBoxDraw();
@@ -90,8 +92,13 @@ export class HomePage implements OnInit {
         alert('Please draw some data');
         return false;
       }
-    };
+    }
 
+    const Map = this.map
+    $('#downloadpng').click(function() {
+      const img = Map.getCanvas().toDataURL('image/png')
+      this.href = img
+    })
   }
 
   import_geojson() {

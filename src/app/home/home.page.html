@@ -9,15 +9,23 @@
   </ion-toolbar>
 </ion-header>
  -->
+
 <ion-content class="noScroll">
   <div id="map"></div> 
-  <a href='#' id='export'></a>
+  <div>
+    <a href='#' id='export'>geojson</a>
+    <a id="downloadpng" download="map.png">png</a>
+  </div>
+  
+
+
 
   <div class='map-overlay top'>
       <div class='map-overlay-inner'>
           <fieldset>
               <label>import geojson</label>
               <ion-button size="small" slot="icon-only" id="Import_geojson" (click)="import_geojson()"></ion-button>
+              
           </fieldset>
       </div>
   </div>
