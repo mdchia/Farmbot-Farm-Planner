@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
-
+import 'mapbox-gl-draw-freehand-mode';
 
 class SatelliteViewControl {
 
@@ -53,7 +53,6 @@ export class HomePage implements OnInit {
   lng = 149.13;
 
   draw: MapBoxDraw;
-  
 
   constructor() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken')
@@ -75,18 +74,13 @@ export class HomePage implements OnInit {
       center: [this.lng, this.lat]
     });
 
-    this.draw = new MapBoxDraw({
-      displayControlsDefault: false,
-      controls: {
-        polygon: true,
-        point: true,
-        trash: true,
-      }
-    });
+    this.draw = new MapBoxDraw();
 
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.addControl(this.draw);
     this.map.addControl(new SatelliteViewControl());
+
+    this.map.on('draw.create', () => console.log(this.draw.getAll()));
 
     var Draw = this.draw
     document.getElementById('export').onclick = function(e) {
