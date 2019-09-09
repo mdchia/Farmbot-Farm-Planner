@@ -9,7 +9,6 @@ class SatelliteViewControl {
   map: mapboxgl.Map;
   button: HTMLButtonElement;
   container: HTMLElement;
-  
 
   onAdd(map: mapboxgl.Map) {
     this.map = map;
@@ -37,9 +36,6 @@ class SatelliteViewControl {
   }
 }
 
-
-
-
 @Component({
   selector: 'src-app-home',
   templateUrl: 'home.page.html',
@@ -56,14 +52,14 @@ export class HomePage implements OnInit {
 
   constructor() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken')
-          .set('pk.eyJ1IjoiaHp6enoiLCJhIjoiY2p6cG1hOGFoMDE3dzNtbjQ2ZHpiZmI4cSJ9.5PMTx2nHNouS-uTeNO8FVQ');
+      .set('pk.eyJ1IjoiaHp6enoiLCJhIjoiY2p6cG1hOGFoMDE3dzNtbjQ2ZHpiZmI4cSJ9.5PMTx2nHNouS-uTeNO8FVQ');
   }
 
   ngOnInit() {
   }
 
   ionViewDidEnter() {
-   this.buildMap();
+    this.buildMap();
   }
 
   buildMap() {
@@ -82,111 +78,106 @@ export class HomePage implements OnInit {
 
     this.map.on('draw.create', () => console.log(this.draw.getAll()));
 
-    var Draw = this.draw
-    document.getElementById('export').onclick = function(e) {
-      var data = Draw.getAll();
+    const Draw = this.draw;
+    document.getElementById('export').onclick = () => {
+      const data = Draw.getAll();
 
       if (data.features.length > 0) {
-          var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-          document.getElementById('export').setAttribute('href', 'data:' + convertedData);
-          document.getElementById('export').setAttribute('download','data.geojson');    
+        const convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+        document.getElementById('export').setAttribute('href', 'data:' + convertedData);
+        document.getElementById('export').setAttribute('download', 'data.geojson');
       } else {
-          alert("Please draw some data");
+        alert('Please draw some data');
       }
-      
-      }
-
-    }
-
-    import_geojson() {
-
-        var url = 'https://raw.githubusercontent.com/Yutian98/tests/master/data.geojson'
-
-        this.map.addLayer({
-            'id': 'geojson_Polygon',
-            'type': 'fill',
-            'source': {
-                'type': 'geojson',
-                'data': url
-            },
-            "paint": {
-                "fill-color": "#888888",
-                "fill-opacity": 0.4
-            },
-            "filter": ["==", "$type", "Polygon"]
-        });
-
-        this.map.addLayer({
-            'id': 'geojson_Point',
-            'type': 'circle',
-            'source': {
-                'type': 'geojson',
-                'data': url
-            },
-            "paint": {
-                "circle-radius": 5,
-                "circle-color": "#ff0000"
-            },
-            "filter": ["==", "$type", "Point"]
-        });
-
-        this.map.addLayer({
-            'id': 'geojson_LineString',
-            'type': 'line',
-            'source': {
-                'type': 'geojson',
-                'data': url
-            },
-            "paint": {
-                "line-color": "#888888",
-                "line-width": 4
-            },
-            "filter": ["==", "$type", "LineString"]
-        });
-
-
-        
-        /*
-        this.map.addLayer({
-            "id": "points",
-            "type": "symbol",
-            "source": {
-                "type": "geojson",
-                "data": {
-                    "type": "FeatureCollection",
-                    "features": [{
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [-77.03238901390978, 38.913188059745586]
-                        },
-                        "properties": {
-                            "title": "Mapbox DC",
-                            "icon": "monument"
-                        }
-                    }, {
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [-122.414, 37.776]
-                        },
-                        "properties": {
-                            "title": "Mapbox SF",
-                            "icon": "harbor"
-                        }
-                    }]
-                }
-            },
-            "layout": {
-                "icon-image": "{icon}-15",
-                "text-field": "{title}",
-                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-                "text-offset": [0, 0.6],
-                "text-anchor": "top"
-            }
-        });
-       */
-    }
+    };
 
   }
 
+  import_geojson() {
+
+    const url = 'https://raw.githubusercontent.com/Yutian98/tests/master/data.geojson';
+
+    this.map.addLayer({
+      id: 'geojson_Polygon',
+      type: 'fill',
+      source: {
+        type: 'geojson',
+        data: url
+      },
+      paint: {
+        'fill-color': '#888888',
+        'fill-opacity': 0.4
+      },
+      filter: ['==', '$type', 'Polygon']
+    });
+
+    this.map.addLayer({
+      id: 'geojson_Point',
+      type: 'circle',
+      source: {
+        type: 'geojson',
+        data: url
+      },
+      paint: {
+        'circle-radius': 5,
+        'circle-color': '#ff0000'
+      },
+      filter: ['==', '$type', 'Point']
+    });
+
+    this.map.addLayer({
+      id: 'geojson_LineString',
+      type: 'line',
+      source: {
+        type: 'geojson',
+        data: url
+      },
+      paint: {
+        'line-color': '#888888',
+        'line-width': 4
+      },
+      filter: ['==', '$type', 'LineString']
+    });
+
+    /*
+    this.map.addLayer({
+        "id": "points",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-77.03238901390978, 38.913188059745586]
+                    },
+                    "properties": {
+                        "title": "Mapbox DC",
+                        "icon": "monument"
+                    }
+                }, {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-122.414, 37.776]
+                    },
+                    "properties": {
+                        "title": "Mapbox SF",
+                        "icon": "harbor"
+                    }
+                }]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "text-field": "{title}",
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
+        }
+    });
+   */
+  }
+}
