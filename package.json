@@ -27,6 +27,7 @@
     "@mapbox/mapbox-gl-draw": "^1.1.2",
     "core-js": "^2.5.4",
     "mapbox-gl": "^1.2.1",
+    "mapbox-gl-draw-freehand-mode": "^1.0.3",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
