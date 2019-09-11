@@ -95,10 +95,19 @@ export class HomePage implements OnInit {
     }
 
     const Map = this.map
-    $('#downloadpng').click(function() {
-      const img = Map.getCanvas().toDataURL('image/png')
-      this.href = img
-    })
+    document.getElementById("downloadpng").onclick = function() {
+
+      var link = document.createElement("a");
+      link.download = "image.png";
+    
+      Map.getCanvas().toBlob(function(blob){
+        link.href = URL.createObjectURL(blob);
+        console.log(blob);
+        console.log(link.href);
+        link.click();
+      },'image/png');
+    
+    }
   }
 
   import_geojson() {
