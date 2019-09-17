@@ -52,6 +52,16 @@ export class HomePage implements OnInit {
 
   draw: MapBoxDraw;
 
+  file: any;
+  handleFileInput(event: any) {
+    this.file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.draw.add(JSON.parse(reader.result.toString()));
+    };
+    reader.readAsText(this.file);
+  }
+
   constructor() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken')
       .set('pk.eyJ1IjoiaHp6enoiLCJhIjoiY2p6cG1hOGFoMDE3dzNtbjQ2ZHpiZmI4cSJ9.5PMTx2nHNouS-uTeNO8FVQ');
@@ -100,115 +110,17 @@ export class HomePage implements OnInit {
 
       var link = document.createElement("a");
       link.download = "image.png";
-    
+
       Map.getCanvas().toBlob(function(blob){
         link.href = URL.createObjectURL(blob);
         console.log(blob);
         console.log(link.href);
         link.click();
-      },'image/png');
-    
-    }
+      }, 'image/png');
+    };
 
-
-
-    const url = 'https://raw.githubusercontent.com/Yutian98/tests/master/data.geojson';
-
-
-    document.getElementById('Import_geojson').onclick = () => {
-      this.map.addLayer({
-        id: 'geojson_Polygon',
-        type: 'fill',
-        source: {
-          type: 'geojson',
-          data: url
-        },
-        paint: {
-          'fill-color': '#888888',
-          'fill-opacity': 0.4
-        },
-        filter: ['==', '$type', 'Polygon']
-      });
-  
-      this.map.addLayer({
-        id: 'geojson_Point',
-        type: 'circle',
-        source: {
-          type: 'geojson',
-          data: url
-        },
-        paint: {
-          'circle-radius': 5,
-          'circle-color': '#ff0000'
-        },
-        filter: ['==', '$type', 'Point']
-      });
-  
-      this.map.addLayer({
-        id: 'geojson_LineString',
-        type: 'line',
-        source: {
-          type: 'geojson',
-          data: url
-        },
-        paint: {
-          'line-color': '#888888',
-          'line-width': 4
-        },
-        filter: ['==', '$type', 'LineString']
-      });
-
-    }
+    document.getElementById('Import_geojson').onchange = (event) => {
+      this.handleFileInput(event); // TODO this function can likely be moved in here
+    };
   }
-
-  
-
-    
-
-
-
-
-    
-
-    /*
-    this.map.addLayer({
-        "id": "points",
-        "type": "symbol",
-        "source": {
-            "type": "geojson",
-            "data": {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-77.03238901390978, 38.913188059745586]
-                    },
-                    "properties": {
-                        "title": "Mapbox DC",
-                        "icon": "monument"
-                    }
-                }, {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-122.414, 37.776]
-                    },
-                    "properties": {
-                        "title": "Mapbox SF",
-                        "icon": "harbor"
-                    }
-                }]
-            }
-        },
-        "layout": {
-            "icon-image": "{icon}-15",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-        }
-    });
-   */
-  
 }
