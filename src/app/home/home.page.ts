@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl-draw-freehand-mode';
-import $ from "jquery";
+
+
 
 class SatelliteViewControl {
 
@@ -108,53 +109,66 @@ export class HomePage implements OnInit {
       },'image/png');
     
     }
-  }
 
-  import_geojson() {
+
 
     const url = 'https://raw.githubusercontent.com/Yutian98/tests/master/data.geojson';
 
-    this.map.addLayer({
-      id: 'geojson_Polygon',
-      type: 'fill',
-      source: {
-        type: 'geojson',
-        data: url
-      },
-      paint: {
-        'fill-color': '#888888',
-        'fill-opacity': 0.4
-      },
-      filter: ['==', '$type', 'Polygon']
-    });
 
-    this.map.addLayer({
-      id: 'geojson_Point',
-      type: 'circle',
-      source: {
-        type: 'geojson',
-        data: url
-      },
-      paint: {
-        'circle-radius': 5,
-        'circle-color': '#ff0000'
-      },
-      filter: ['==', '$type', 'Point']
-    });
+    document.getElementById('Import_geojson').onclick = () => {
+      this.map.addLayer({
+        id: 'geojson_Polygon',
+        type: 'fill',
+        source: {
+          type: 'geojson',
+          data: url
+        },
+        paint: {
+          'fill-color': '#888888',
+          'fill-opacity': 0.4
+        },
+        filter: ['==', '$type', 'Polygon']
+      });
+  
+      this.map.addLayer({
+        id: 'geojson_Point',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: url
+        },
+        paint: {
+          'circle-radius': 5,
+          'circle-color': '#ff0000'
+        },
+        filter: ['==', '$type', 'Point']
+      });
+  
+      this.map.addLayer({
+        id: 'geojson_LineString',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: url
+        },
+        paint: {
+          'line-color': '#888888',
+          'line-width': 4
+        },
+        filter: ['==', '$type', 'LineString']
+      });
 
-    this.map.addLayer({
-      id: 'geojson_LineString',
-      type: 'line',
-      source: {
-        type: 'geojson',
-        data: url
-      },
-      paint: {
-        'line-color': '#888888',
-        'line-width': 4
-      },
-      filter: ['==', '$type', 'LineString']
-    });
+    }
+  }
+
+  
+
+    
+
+
+
+
+    
 
     /*
     this.map.addLayer({
@@ -196,5 +210,5 @@ export class HomePage implements OnInit {
         }
     });
    */
-  }
+  
 }
