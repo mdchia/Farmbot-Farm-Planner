@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl-draw-freehand-mode';
-
-
+import * as togeojson from '@mapbox/togeojson';
+import * as xmldom from 'xmldom';
 
 class SatelliteViewControl {
 
@@ -61,6 +61,20 @@ export class HomePage implements OnInit {
     };
     reader.readAsText(this.file);
   }
+  
+  kml : any;
+  parsedString : any;
+  kml_Geo(event: any){
+    this.file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      console.log(reader.result.toString());
+      this.parsedString = xmldom.DOMParser().parseFromString(reader.result,'text/xml')
+      this.kml = togeojson.kml();
+      this.draw.add(JSON.parse(JSON.stringify(this.kml)));
+    };
+    reader.readAsText(this.file);
+  } 
 
   constructor() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken')
@@ -122,5 +136,9 @@ export class HomePage implements OnInit {
     document.getElementById('Import_geojson').onchange = (event) => {
       this.handleFileInput(event); // TODO this function can likely be moved in here
     };
+
+    document.getElementById('Import_kml').onchange = (event) => {
+      this.kml_Geo(event);
+    }; 
   }
 }
