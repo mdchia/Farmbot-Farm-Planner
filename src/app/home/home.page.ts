@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl-draw-freehand-mode';
-
-
+import * as togeojson from '@mapbox/togeojson';
 
 class SatelliteViewControl {
 
@@ -51,6 +50,8 @@ export class HomePage implements OnInit {
   lng = 149.13;
 
   draw: MapBoxDraw;
+  parsedKML: XMLDocument;
+  geojson: any;
 
   file: any;
   handleFileInput(event: any) {
@@ -58,6 +59,19 @@ export class HomePage implements OnInit {
     const reader = new FileReader();
     reader.onload = (e) => {
       this.draw.add(JSON.parse(reader.result.toString()));
+    };
+    reader.readAsText(this.file);
+  }
+
+  kml_Geo(event: any) {
+    this.file = event.target.files[0];
+    const reader = new FileReader();
+    const parser = new DOMParser();
+    reader.onload = (e) => {
+      console.log(reader.result.toString());
+      this.parsedKML = parser.parseFromString(reader.result.toString(), 'text/xml');
+      this.geojson = togeojson.kml(this.parsedKML);
+      this.draw.add(this.geojson);
     };
     reader.readAsText(this.file);
   }
@@ -120,7 +134,11 @@ export class HomePage implements OnInit {
     };
 
     document.getElementById('Import_geojson').onchange = (event) => {
-      this.handleFileInput(event); // TODO this function can likely be moved in here
+      this.handleFileInput(event); // TODO handleFileInput function can likely be moved in here
+    };
+
+    document.getElementById('Import_kml').onchange = (event) => {
+      this.kml_Geo(event);
     };
   }
 }
