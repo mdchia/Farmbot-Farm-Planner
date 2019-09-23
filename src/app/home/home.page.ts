@@ -4,6 +4,7 @@ import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl-draw-freehand-mode';
 import * as togeojson from '@mapbox/togeojson';
+import * as shapefile from 'shapefile'
 
 class SatelliteViewControl {
 
@@ -139,8 +140,8 @@ export class HomePage implements OnInit {
   draw: MapBoxDraw;
   parsedKML: XMLDocument;
   geojson: any;
-
   file: any;
+
   handleFileInput(event: any) {
     this.file = event.target.files[0];
     const reader = new FileReader();
@@ -161,6 +162,16 @@ export class HomePage implements OnInit {
       this.draw.add(this.geojson);
     };
     reader.readAsText(this.file);
+  }
+
+  shp_Geo (event: any) {
+    this.file = event.target.files[0];
+    const source = shapefile.open(this.file, null);
+    const result = source.read();
+    if(result.done){
+      this.geojson = result.value;
+      this.draw.add(this.geojson);
+    }
   }
 
   constructor() {
@@ -227,6 +238,10 @@ export class HomePage implements OnInit {
 
     document.getElementById('Import_kml').onchange = (event) => {
       this.kml_Geo(event);
+    };
+
+    document.getElementById('Import_shapefile').onchange = (event) => {
+      this.shp_Geo(event);
     };
   }
 }
