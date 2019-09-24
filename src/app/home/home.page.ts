@@ -164,13 +164,13 @@ export class HomePage implements OnInit {
     reader.readAsText(this.file);
   }
 
-  shp_Geo (event: any) {
+  async shp_Geo (event: any) {
     this.file = event.target.files[0];
-    const source = shapefile.open(this.file, null);
-    const result = source.read();
-    if(result.done){
-      this.geojson = result.value;
-      this.draw.add(this.geojson);
+    const source = await shapefile.openShp("https://raw.githubusercontent.com/matplotlib/basemap/v1.1.0/lib/mpl_toolkits/basemap/data/UScounties.shp");
+    while (true) {
+      const result = await source.read();
+      if (result.done) break;
+      this.draw.add(result.value);
     }
   }
 
