@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl-draw-freehand-mode';
-import * as togeojson from '@mapbox/togeojson';
-import * as shapefile from 'shapefile'
+import * as kml2json from '@mapbox/togeojson';
+import * as shapefile from 'shapefile';
 
 class SatelliteViewControl {
 
@@ -123,8 +123,6 @@ class contourControl {
 
 
 
-
-
 @Component({
   selector: 'src-app-home',
   templateUrl: 'home.page.html',
@@ -141,6 +139,7 @@ export class HomePage implements OnInit {
   parsedKML: XMLDocument;
   geojson: any;
   file: any;
+  coordinate: mapboxgl.LngLat;
 
   handleFileInput(event: any) {
     this.file = event.target.files[0];
@@ -158,21 +157,22 @@ export class HomePage implements OnInit {
     reader.onload = (e) => {
       console.log(reader.result.toString());
       this.parsedKML = parser.parseFromString(reader.result.toString(), 'text/xml');
-      this.geojson = togeojson.kml(this.parsedKML);
+      this.geojson = kml2json.kml(this.parsedKML);
       this.draw.add(this.geojson);
     };
     reader.readAsText(this.file);
   }
 
-  async shp_Geo (event: any) {
+   async shp_Geo (event: any) {
     this.file = event.target.files[0];
-    const source = await shapefile.openShp("https://raw.githubusercontent.com/matplotlib/basemap/v1.1.0/lib/mpl_toolkits/basemap/data/UScounties.shp");
+    const source = await shapefile.openShp("https://cdn.rawgit.com/mbostock/shapefile/master/test/points.shp");
     while (true) {
       const result = await source.read();
       if (result.done) break;
       this.draw.add(result.value);
     }
-  }
+  } 
+
 
   constructor() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken')
@@ -232,6 +232,17 @@ export class HomePage implements OnInit {
       }, 'image/png');
     };
 
+    document.getElementById('dropbtn').addEventListener("click", function(){
+      var menuBox = document.getElementById('dropdown-content');    
+      if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
+        menuBox.style.display = "none";
+      }
+      else { // if is menuBox hidden, display it
+        menuBox.style.display = "block";
+      }
+    });
+
+    // *** Map Files Inport
     document.getElementById('Import_geojson').onchange = (event) => {
       this.handleFileInput(event); // TODO handleFileInput function can likely be moved in here
     };
@@ -243,5 +254,100 @@ export class HomePage implements OnInit {
     document.getElementById('Import_shapefile').onchange = (event) => {
       this.shp_Geo(event);
     };
+
+    // *** Icon Images Loading
+    Map.on('load', function() {
+      // Tree-icon
+      Map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+        if (error) throw error;
+        Map.addImage('tree', image); 
+      });
+      // Tomato-icon
+      Map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+        if (error) throw error;
+        Map.addImage('tomato', image);
+      });
+      // Eggplant-icon
+      Map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+        if (error) throw error;
+        Map.addImage('eggplant', image);
+      });
+      // Carrot icon
+      Map.loadImage('https://www.flaticon.com/premium-icon/carrot_2072991.png', function(error, image) {
+        if (error) throw error;
+        Map.addImage('carrot', image);
+      });
+    });
+
+    var selected_mode;
+    var selectedTool;
+    // *** Farm_Design Toolbox
+    document.getElementById("tree").addEventListener("click", function(){
+      Draw.changeMode('draw_point'); 
+      selected_mode = 'draw_point'; 
+      selectedTool = "tree";  
+      
+      Map.on('Draw.modechange', e => { 
+        Draw.changeMode(selected_mode);
+      });
+    });
+
+    document.getElementById("tomato").addEventListener("click", function(){
+      Draw.changeMode('draw_point'); 
+      selected_mode = 'draw_point'; 
+      selectedTool = "tomato";
+      
+      Map.on('Draw.modechange', e => { 
+        Draw.changeMode(selected_mode);
+      });
+    });
+
+    document.getElementById("eggplant").addEventListener("click", function(){
+      Draw.changeMode('draw_point'); 
+      selected_mode = 'draw_point'; 
+      selectedTool = "eggplant"; 
+
+      Map.on('Draw.modechange', e => { 
+        Draw.changeMode(selected_mode);
+      });
+    });
+
+    document.getElementById("carrot").addEventListener("click", function(){
+      Draw.changeMode('draw_point'); 
+      selected_mode = 'draw_point'; 
+      selectedTool = "carrot"; 
+
+      Map.on('Draw.modechange', e => { 
+        Draw.changeMode(selected_mode);
+      });
+    });
+ 
+
+    // *** Draw icons with Map clicks
+    Map.on('click', function (e) {
+      var imageId = e.lngLat.lng + e.lngLat.lat + "";
+      Map.addLayer({
+        "id": imageId,
+        "type": "symbol",
+        "source": {
+          "type": "geojson",
+          "data": {
+            "type": "FeatureCollection",
+            "features": [{
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [e.lngLat.lng, e.lngLat.lat]
+              },
+              "properties": {}
+            }]
+          }
+        },
+        "layout": {
+          "icon-image": selectedTool,
+          "icon-size" : 1
+        }
+      });
+    });
   }
 }
