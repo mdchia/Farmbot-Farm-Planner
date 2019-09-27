@@ -258,22 +258,22 @@ export class HomePage implements OnInit {
     // *** Icon Images Loading
     Map.on('load', function() {
       // Tree-icon
-      Map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+      Map.loadImage("https://img.icons8.com/cotton/64/000000/tree.png", function(error, image) {
         if (error) throw error;
         Map.addImage('tree', image); 
       });
       // Tomato-icon
-      Map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+      Map.loadImage("https://img.icons8.com/color/64/000000/tomato.png", function(error, image) {
         if (error) throw error;
         Map.addImage('tomato', image);
       });
       // Eggplant-icon
-      Map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+      Map.loadImage("https://img.icons8.com/cotton/64/000000/eggplant--v1.png", function(error, image) {
         if (error) throw error;
         Map.addImage('eggplant', image);
       });
       // Carrot icon
-      Map.loadImage('https://www.flaticon.com/premium-icon/carrot_2072991.png', function(error, image) {
+      Map.loadImage("https://img.icons8.com/cute-clipart/64/000000/carrot.png", function(error, image) {
         if (error) throw error;
         Map.addImage('carrot', image);
       });
@@ -345,7 +345,7 @@ export class HomePage implements OnInit {
         },
         "layout": {
           "icon-image": selectedTool,
-          "icon-size" : 1
+          "icon-size" : 0.5
         }
       });
     });
