@@ -4,6 +4,7 @@ import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl-draw-freehand-mode';
 import * as togeojson from '@mapbox/togeojson';
+import * as csv2geojson from 'csv2geojson';
 
 class SatelliteViewControl {
 
@@ -139,8 +140,8 @@ export class HomePage implements OnInit {
   draw: MapBoxDraw;
   parsedKML: XMLDocument;
   geojson: any;
-
   file: any;
+
   handleFileInput(event: any) {
     this.file = event.target.files[0];
     const reader = new FileReader();
@@ -162,6 +163,65 @@ export class HomePage implements OnInit {
     };
     reader.readAsText(this.file);
   }
+
+  //npm install --save csv2geojson
+  function makeGeoJSON(csvData) {
+    var geoJson = csv2geojson.csv2geojson(csvData, {
+      latfield: 'latitude',
+      lonfield: 'longitude',
+      delimiter: ','
+        }, function(err, data) {
+      });
+    };
+
+    parsedCSV: XMLDocument;
+
+  csv_Geo(event: any) {
+    this.file = event.target.files[0];
+    const reader = new FileReader();
+    const parser = new DOMParser();
+    reader.onload = (e) => {
+      console.log(reader.result.toString());
+      this.parsedCSV = parser.parseFromString(reader.result.toString(), 'csv/xml');
+      this.geojson = csv2geojson.csv2geojson(this.parsedKML);
+      this.draw.add(this.geojson);
+    };
+    reader.readAsText(this.file);
+  }
+
+//npm install json-2-csv
+  'use strict';
+  const converter = require('json-2-csv');
+  let myObj = {
+    "rows": [
+      {
+       value1: "Not set",
+       value2: "(not set)",
+       value3: "(not set)",
+      },
+      {
+       value1: "Not set",
+       value2: "(not set)",
+       value3: "(not set)",
+      },
+    ]
+  }
+
+  let json2csvCallback = function (err, csv) {
+     if (err) throw err;
+     fs.writeFile('export.csv', output, 'utf8', function(err) {
+       if (err) {
+         console.log('Some error occured - file either not saved or corrupted file saved.');
+       } else {
+         console.log('Saved!');
+       }
+      });
+    };
+
+// converter.json2csv(myObj.rows, json2csvCallback, {
+//   prependHeader: false      
+//   // removes the generated header of "value1,value2,value3" (in case you don't want it)
+// });
 
   constructor() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken')
@@ -228,5 +288,33 @@ export class HomePage implements OnInit {
     document.getElementById('Import_kml').onchange = (event) => {
       this.kml_Geo(event);
     };
-  }
+    
+    const url = 'https://raw.githubusercontent.com/mdchia/Farmbot-Farm-Planner/master/New%20Text%20Document.csv';
+    document.getElementById('Import_csv').onchange = (event) => {
+      this.csv_Geo(event);
+    }；
+
+        //  function(err, data) {
+        //   this.map.on('load', function () {
+        //       this.map.addLayer({
+        //         'id': 'airports',
+        //         'type': 'symbol',
+        //         'source': {
+        //             'type': 'geojson',
+        //             'data': url
+        //           },
+        //           'layout': {
+        //             "icon-image": "marker-15"
+        //           },
+        //           'paint': {}
+        //       });
+        //   });    
+        // });
+    
+    // var csv2geojson = require('csv2geojson');
+    // var geoJson = csv2geojson.csv2geojson(csvString, function(err, data) {
+    //   // err has any parsing errors
+    //   // data is the data.
+    // });
+      
 }

@@ -85,3 +85,25 @@ button:active {
 #Import_geojson:active {
     box-shadow: inset 0 2px 5px #2370FE;   
 }
+
+
+#Import_csv {
+    height: 35px;
+    width: 120px;
+    margin-top: 10px;
+    margin-left: 24%;
+    color: white;
+    background: #4C8FFB;
+    border: 1px #3079ED solid;
+    box-shadow: inset 0 1px 0 #80B0FB;
+  }
+
+#Import_csv:hover{
+    border: 1px #2F5BB7 solid;
+    box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
+    background: #3F83F1;
+}
+
+#Import_csv:active {
+    box-shadow: inset 0 2px 5px #2370FE;   
+}
