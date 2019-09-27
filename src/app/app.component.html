@@ -31,46 +31,15 @@
       <ion-content>
         <ion-list>
             <ion-menu-toggle auto-hide="false">
-                <ion-button >1</ion-button>
-                <ion-button >2</ion-button>
-                <ion-button >3</ion-button>
-                <ion-button >4</ion-button>
-                <div id="dropdown">
-                  <ion-button id="dropbtn" expand="block">
-                    <ion-icon name="brush"></ion-icon>
-                    draw
-                  </ion-button>
-                  <div id="dropdown-content" style="display:none">
-                    <button id="tree" href="#">Tree</button>>
-                    <button id="tomato" href="#">Tomato</button>>
-                    <button id="eggplant" href="#">Eggplant</button>
-                    <button id="carrot" href="#">Carrot</button>>
-                  </div>
-                </div>
                 <ion-list>
                     <ion-item>
-                        <ion-label>Obj1</ion-label>
-                        <ion-checkbox slot="end" value="Obj1" checked></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                        <ion-label>Obj2</ion-label>
-                        <ion-checkbox slot="end" value="Obj2" disabled></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                        <ion-label>Obj3</ion-label>
+                        <ion-label>Layer1</ion-label>
                         <ion-checkbox slot="end" value="Obj3"></ion-checkbox>
                     </ion-item>
-                    <input type='file' id="Import_geojson"/>
-                    <input type='file' id="Import_kml"/> 
-                    <input type='file' id="Import_shapefile"/> 
+                    <input type='file' id="Import_file"/>
                 </ion-list>
-                
                 <button href='#' id='downloadpng'>download as png</button>
                 <button href='#' id='export'>download as geojson</button>
-                
-
             </ion-menu-toggle>
         </ion-list>
       </ion-content>
