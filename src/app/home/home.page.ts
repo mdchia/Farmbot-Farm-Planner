@@ -4,7 +4,7 @@ import * as mapboxgl from 'mapbox-gl';
 import * as MapBoxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl-draw-freehand-mode';
 import * as kml2json from '@mapbox/togeojson';
-import * as shp2json from 'shpjs';
+import * as shp from 'shpjs';
 import { Observable } from 'rxjs';
 // import * as shapefile from 'shapefile';
 
@@ -170,7 +170,7 @@ export class HomePage implements OnInit {
     console.log(this.file.name);
     await this.readFileContent(this.file).toPromise().then(
       res => {
-        shp2json(res).then(function(geojson){
+        shp(res).then(function(geojson){
           console.log(geojson.type);
           this.geojson = geojson;
           this.draw.add(this.geojson);
