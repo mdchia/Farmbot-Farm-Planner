@@ -6,7 +6,7 @@ import 'mapbox-gl-draw-freehand-mode';
 import * as kml2json from '@mapbox/togeojson';
 import * as shp from 'shpjs';
 import { Observable } from 'rxjs';
-// import * as shapefile from 'shapefile';
+import * as shapefile from 'shapefile';
 
 class SatelliteViewControl {
 
@@ -165,7 +165,7 @@ export class HomePage implements OnInit {
     reader.readAsText(this.file);
   }
 
-  async shp_Geo (event: any) {
+/*   async shp_Geo (event: any) {
     this.file = event.target.files[0];
     console.log(this.file.name);
     await this.readFileContent(this.file).toPromise().then(
@@ -177,7 +177,7 @@ export class HomePage implements OnInit {
         })
       }
     );
-  }
+  } */
 
   readFileContent(file: File) {
     let reader: FileReader = new FileReader();
@@ -192,7 +192,7 @@ export class HomePage implements OnInit {
     });
   }
 
-/*    async shp_Geo (event: any) {
+  async shp_Geo (event: any) {
     this.file = event.target.files[0];
     const source = await shapefile.openShp("https://cdn.rawgit.com/mbostock/shapefile/master/test/points.shp");
     while (true) {
@@ -200,7 +200,7 @@ export class HomePage implements OnInit {
       if (result.done) break;
       this.draw.add(result.value);
     }
-  }  */
+  }
 
 
 
