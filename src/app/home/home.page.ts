@@ -165,6 +165,7 @@ export class HomePage implements OnInit {
     reader.readAsText(this.file);
   }
 
+  //*** via shpjs.js 
 /*   async shp_Geo (event: any) {
     this.file = event.target.files[0];
     console.log(this.file.name);
@@ -192,6 +193,7 @@ export class HomePage implements OnInit {
     });
   }
 
+  // *** via shapefile.js
   async shp_Geo (event: any) {
     this.file = event.target.files[0];
     const source = await shapefile.openShp("https://cdn.rawgit.com/mbostock/shapefile/master/test/points.shp");
