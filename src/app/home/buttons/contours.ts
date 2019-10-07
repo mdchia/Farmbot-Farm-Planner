@@ -1,3 +1,5 @@
+// add contour overlay
+
 export class ContourControl {
 
     map: mapboxgl.Map;

@@ -1,3 +1,5 @@
+// add satellite view
+
 export class SatelliteViewControl {
 
     map: mapboxgl.Map;

@@ -26,7 +26,7 @@ export class HomePage implements OnInit {
   geojson: any;
   file: any;
   coordinate: mapboxgl.LngLat;
-
+// KML,geojson upload
   handleFileInput(event: any) {
     const reader = new FileReader();
     this.file = event.target.files[0];
@@ -93,7 +93,7 @@ export class HomePage implements OnInit {
     const Draw = this.draw;
     document.getElementById('export').onclick = () => {
       const data = Draw.getAll();
-
+      // export to geojson
       if (data.features.length > 0) {
         const convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
         document.getElementById('export').setAttribute('href', 'data:' + convertedData);
@@ -103,7 +103,7 @@ export class HomePage implements OnInit {
         return false;
       }
     };
-
+    // export to png
     const Map = this.map;
     document.getElementById('downloadpng').onclick = function() {
 
