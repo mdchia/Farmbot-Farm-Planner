@@ -19,4 +19,4 @@ Navigate to the project source with `cd Farmbot-Farm-Planner` then start the app
 
 ### Deploying to Github Pages
 
-Run `npm run gh-pages` to build and deploy the branch to the prod branch, which will update the website.
+Run `npm run gh-pages` to build and deploy the branch to the gh-pages branch, which will update the website.
