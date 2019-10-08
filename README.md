@@ -11,7 +11,7 @@ Node.js
 
 ### Installing
 
-Install the Ionic framework with `npm install -g ionic`
+Install the Ionic framework with `npm install -g ionic`. Then install the dependencies with `npm install`.
 
 ### Running
 
