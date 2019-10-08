@@ -38,10 +38,15 @@
                         <ion-label>Layer1</ion-label>
                         <ion-checkbox slot="end" value="Obj3"></ion-checkbox>
                     </ion-item>
-                    <input type='file' id="Import_file"/>
+                    <div class="ion-padding">
+                        <ion-input expand="block" accept=".geojson, .json, .kml, .shp, .zip"  type='file' id="Import_file">Input Data</ion-input>
+                    </div>
+                    
+                    <section>
+                      <ion-button id='downloadpng'>Image Download</ion-button>
+                      <ion-button id='export'>GeoJSON Download</ion-button>
+                    </section>
                 </ion-list>
-                <button href='#' id='downloadpng'>download as png</button>
-                <button href='#' id='export'>download as geojson</button>
             </ion-menu-toggle>
         </ion-list>
       </ion-content>
