@@ -88,16 +88,23 @@ export class HomePage implements OnInit {
     this.map.addControl(new SatelliteViewControl());
     this.map.addControl(new ContourControl());
 
-    this.map.on('draw.create', () => console.log(this.draw.getAll()));
-
+    // export to geojson
     const Draw = this.draw;
     document.getElementById('export').onclick = () => {
+
+      const element = document.createElement('a');
+      element.download = 'data.geojson';
+
       const data = Draw.getAll();
-      // export to geojson
       if (data.features.length > 0) {
         const convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-        document.getElementById('export').setAttribute('href', 'data:' + convertedData);
-        document.getElementById('export').setAttribute('download', 'data.geojson');
+        element.setAttribute('href', 'data:' + convertedData);
+        element.setAttribute('download', 'data.geojson');
+
+        document.body.appendChild(element); // Firefox compatibility
+        element.click();
+        document.body.removeChild(element);
+
       } else {
         alert('Please draw some data');
         return false;
@@ -105,16 +112,17 @@ export class HomePage implements OnInit {
     };
     // export to png
     const Map = this.map;
-    document.getElementById('downloadpng').onclick = function() {
+    document.getElementById('downloadpng').onclick = () => {
 
-      let link = document.createElement('a');
+      const link = document.createElement('a');
       link.download = 'image.png';
 
-      Map.getCanvas().toBlob(function(blob) {
+      Map.getCanvas().toBlob((blob) => {
         link.href = URL.createObjectURL(blob);
-        console.log(blob);
-        console.log(link.href);
+
+        document.body.appendChild(link); // Firefox compatibility
         link.click();
+        document.body.removeChild(link);
       }, 'image/png');
     };
 
