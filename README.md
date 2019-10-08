@@ -1,5 +1,5 @@
 # Farmbot-Farm-Planner
-Open source farm planner, started with the Farmbot 2019 S2 project
+Open source farm planner, started with the Farmbot 2019 S2 project. Website viewable here: https://mdchia.github.io/Farmbot-Farm-Planner/ 
 
 ## Getting Started
 
@@ -16,3 +16,7 @@ Install the Ionic framework with `npm install -g ionic`. Then install the depend
 ### Running
 
 Navigate to the project source with `cd Farmbot-Farm-Planner` then start the app with `ionic serve`. This will start a web server and allow live reloading of changes.
+
+### Deploying to Github Pages
+
+Run `npm run gh-pages` to build and deploy the branch to the prod branch, which will update the website.
